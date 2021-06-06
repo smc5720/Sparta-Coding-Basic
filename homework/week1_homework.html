@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    <title>1주차 숙제</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Single+Day&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            font-family: 'Single Day', cursive;
+        }
+
+        .product-img {
+            background-image: url("https://www.tropicbreeze.co.uk/blog/wp-content/uploads/2016/08/Guana-28-of-54-900-x-450.jpg");
+            width: 900px;
+            height: 450px;
+            margin: 30px auto;
+        }
+
+        .product-detail {
+            width: 950px;
+            height: 200px;
+            margin: auto;
+        }
+
+        .title-text {
+            font-weight: bold;
+        }
+
+        .product-price {
+            font-weight: normal;
+            font-size: 25px;
+            color: blue;
+            margin-left: 30px;
+        }
+
+        .product-explain {
+            font-size: 20px;
+        }
+
+        .product-order {
+            width: 950px;
+            margin: 10px auto;
+        }
+
+        .user-detail {
+            width: 100px;
+            font-size: 20px;
+            display: block;
+            margin-left: 30px;
+        }
+
+        .box {
+            width: 400px;
+        }
+
+        .buy-button {
+            width: 100px;
+            display: block;
+            margin: 30px auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="product-img"></div>
+    <div class="product-detail">
+        <h1 class="product-name title-text">호텔 숙박권<span class="product-price">가격: 200,000원 / 장</span></h1>
+        <p class="product-explain">몬드리안은 시선을 잡아끄는 대담한 디자인과 완벽한 순간을 위한 혁신을 경험할 수 있는 최고의 서비스를 자랑하는 매력적인 숙박 시설입니다. 몬드리안의
+            ‘골든튤립 해운대 호텔&스위트’ 더블룸과 로프트 더블룸 2박 숙박권을 판매하고 있습니다. ‘골든튤립 해운대 호텔&스위트’는 세계 50여개국, 1200여개 호텔을 운영하는 루브르호텔그룹 소속으로
+            해운대 바닷가 도보 5분거리에 위치해 있으며, 전 객실 스타일러, 드럼세탁기, 커피머신 등이 비치되어 ‘호캉스(호텔+바캉스)’까지 가능합니다.</p>
+    </div>
+    <div class="product-order">
+        <h1 class="title-text">주문하기</h1>
+        <div class="form-group row">
+            <label for="inputName" class="user-detail">주문자 성함: </label>
+            <div class="box">
+                <input type="text" class="form-control" id="inputName" placeholder="">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inputAddress" class="user-detail">주소: </label>
+            <div class="box">
+                <input type="text" class="form-control" id="inputAddress" placeholder="">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="user-detail">수량: </label>
+            <select class="box">
+                <option class="dropdown-font"></option>
+            </select>
+        </div>
+        <div class="form-group row">
+            <label for="inputPhonenumber" class="user-detail">전화번호: </label>
+            <div class="box">
+                <input type="text" class="form-control" id="inputPhonenumber" placeholder="">
+            </div>
+        </div>
+    </div>
+    <div class="buy-button"><button type="button" class="btn btn-primary btn-lg">주문하기</button></div>
+</body>
+
+</html>
