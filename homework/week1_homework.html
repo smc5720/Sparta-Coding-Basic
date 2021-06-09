@@ -19,7 +19,7 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
 
-    <title>1주차 숙제</title>
+    <title>Homework</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Single+Day&display=swap" rel="stylesheet">
 
@@ -37,8 +37,8 @@
 
         .product-detail {
             width: 950px;
-            height: 200px;
-            margin: auto;
+            height: 230px;
+            margin: 10px auto;
         }
 
         .title-text {
@@ -77,7 +77,29 @@
             display: block;
             margin: 30px auto;
         }
+
+        .money_rate {
+            font-size: 20px;
+            color: blue;
+        }
     </style>
+    <script>
+        function load_api() {
+            $.ajax({
+                type: "GET",
+                url: "http://spartacodingclub.shop/sparta_api/rate",
+                data: {},
+                success: function (response) {
+                    let rate = response['rate'];
+                    $('#now_rate').text(rate);
+                }
+            })
+        }
+
+        $(document).ready(function(){
+	        load_api();
+        });
+    </script>
 </head>
 
 <body>
@@ -87,6 +109,7 @@
         <p class="product-explain">몬드리안은 시선을 잡아끄는 대담한 디자인과 완벽한 순간을 위한 혁신을 경험할 수 있는 최고의 서비스를 자랑하는 매력적인 숙박 시설입니다. 몬드리안의
             ‘골든튤립 해운대 호텔&스위트’ 더블룸과 로프트 더블룸 2박 숙박권을 판매하고 있습니다. ‘골든튤립 해운대 호텔&스위트’는 세계 50여개국, 1200여개 호텔을 운영하는 루브르호텔그룹 소속으로
             해운대 바닷가 도보 5분거리에 위치해 있으며, 전 객실 스타일러, 드럼세탁기, 커피머신 등이 비치되어 ‘호캉스(호텔+바캉스)’까지 가능합니다.</p>
+        <p class="money_rate">달러-원 환율: <span id="now_rate">1219.15</span></p>
     </div>
     <div class="product-order">
         <h1 class="title-text">주문하기</h1>
