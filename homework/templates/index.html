@@ -8,16 +8,16 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
 
     <title>Homework</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -69,7 +69,7 @@
         }
 
         .box {
-            width: 400px;
+            width: 800px;
         }
 
         .buy-button {
@@ -82,8 +82,18 @@
             font-size: 20px;
             color: blue;
         }
+
+        .table {
+            width: 950px;
+            margin: 50px auto;
+        }
     </style>
     <script>
+        $(document).ready(function () {
+            load_api();
+            order_listing();
+        });
+
         function load_api() {
             $.ajax({
                 type: "GET",
@@ -96,49 +106,114 @@
             })
         }
 
-        $(document).ready(function(){
-	        load_api();
-        });
+        function order_listing() {
+            // 주문목록 보기 API 연결
+            $.ajax({
+                type: "GET",
+                url: "/order",
+                data: {},
+                success: function (response) {
+                    let customers = response['all_customers']
+                    for (let i = 0; i < customers.length; i++) {
+                        let name = customers[i]['name'];
+                        let address = customers[i]['address'];
+                        let count = customers[i]['count'];
+                        let phone = customers[i]['phone'];
+
+                        let tmp_html = `<tr>
+                                            <td>${name}</td>
+                                            <td>${address}</td>
+                                            <td>${count}</td>
+                                            <td>${phone}</td>
+                                        </tr>`;
+
+                        $('#customer-list').append(tmp_html);
+                    }
+                }
+            })
+        }
+
+        // 주문하기 API 연결
+        function order() {
+            let name = $('#inputName').val();
+            let address = $('#inputAddress').val();
+            let count = $('#inputCnt').val();
+            let phone = $('#inputPhoneNumber').val();
+
+            $.ajax({
+                type: "POST",
+                url: "/order",
+                data: {
+                    name_give: name,
+                    address_give: address,
+                    count_give: count,
+                    phone_give: phone
+                },
+                success: function (response) { // 성공하면
+                    alert(response["msg"]);
+                    if (response["msg"] == "주문되었습니다.") {
+                        window.location.reload();
+                    }
+                }
+            })
+        }
     </script>
 </head>
 
 <body>
-    <div class="product-img"></div>
-    <div class="product-detail">
-        <h1 class="product-name title-text">호텔 숙박권<span class="product-price">가격: 200,000원 / 장</span></h1>
-        <p class="product-explain">몬드리안은 시선을 잡아끄는 대담한 디자인과 완벽한 순간을 위한 혁신을 경험할 수 있는 최고의 서비스를 자랑하는 매력적인 숙박 시설입니다. 몬드리안의
-            ‘골든튤립 해운대 호텔&스위트’ 더블룸과 로프트 더블룸 2박 숙박권을 판매하고 있습니다. ‘골든튤립 해운대 호텔&스위트’는 세계 50여개국, 1200여개 호텔을 운영하는 루브르호텔그룹 소속으로
-            해운대 바닷가 도보 5분거리에 위치해 있으며, 전 객실 스타일러, 드럼세탁기, 커피머신 등이 비치되어 ‘호캉스(호텔+바캉스)’까지 가능합니다.</p>
-        <p class="money_rate">달러-원 환율: <span id="now_rate">1219.15</span></p>
-    </div>
-    <div class="product-order">
-        <h1 class="title-text">주문하기</h1>
-        <div class="form-group row">
-            <label for="inputName" class="user-detail">주문자 성함: </label>
-            <div class="box">
-                <input type="text" class="form-control" id="inputName" placeholder="">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="inputAddress" class="user-detail">주소: </label>
-            <div class="box">
-                <input type="text" class="form-control" id="inputAddress" placeholder="">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="user-detail">수량: </label>
-            <select class="box">
-                <option class="dropdown-font"></option>
-            </select>
-        </div>
-        <div class="form-group row">
-            <label for="inputPhonenumber" class="user-detail">전화번호: </label>
-            <div class="box">
-                <input type="text" class="form-control" id="inputPhonenumber" placeholder="">
-            </div>
+<div class="product-img"></div>
+<div class="product-detail">
+    <h1 class="product-name title-text">호텔 숙박권<span class="product-price">가격: 200,000원 / 장</span></h1>
+    <p class="product-explain">몬드리안은 시선을 잡아끄는 대담한 디자인과 완벽한 순간을 위한 혁신을 경험할 수 있는 최고의 서비스를 자랑하는 매력적인 숙박 시설입니다. 몬드리안의
+        ‘골든튤립 해운대 호텔&스위트’ 더블룸과 로프트 더블룸 2박 숙박권을 판매하고 있습니다. ‘골든튤립 해운대 호텔&스위트’는 세계 50여개국, 1200여개 호텔을 운영하는 루브르호텔그룹 소속으로
+        해운대 바닷가 도보 5분거리에 위치해 있으며, 전 객실 스타일러, 드럼세탁기, 커피머신 등이 비치되어 ‘호캉스(호텔+바캉스)’까지 가능합니다.</p>
+    <p class="money_rate">달러-원 환율: <span id="now_rate">1219.15</span></p>
+</div>
+<div class="product-order">
+    <h1 class="title-text">주문하기</h1>
+    <div class="form-group row">
+        <label for="inputName" class="user-detail">주문자 성함: </label>
+        <div class="box">
+            <input type="text" class="form-control" id="inputName" placeholder="">
         </div>
     </div>
-    <div class="buy-button"><button type="button" class="btn btn-primary btn-lg">주문하기</button></div>
+    <div class="form-group row">
+        <label for="inputAddress" class="user-detail">주소: </label>
+        <div class="box">
+            <input type="text" class="form-control" id="inputAddress" placeholder="">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="user-detail">수량: </label>
+        <select class="box" id="inputCnt">
+            <option class="dropdown-font">-- 수량을 선택하세요 --</option>
+            <option class="dropdown-font">1</option>
+            <option class="dropdown-font">2</option>
+            <option class="dropdown-font">3</option>
+        </select>
+    </div>
+    <div class="form-group row">
+        <label for="inputPhoneNumber" class="user-detail">전화번호: </label>
+        <div class="box">
+            <input type="text" class="form-control" id="inputPhoneNumber" placeholder="">
+        </div>
+    </div>
+</div>
+<div class="buy-button">
+    <button type="button" class="btn btn-primary btn-lg" onclick="order()">주문하기</button>
+</div>
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">이름</th>
+        <th scope="col">수량</th>
+        <th scope="col">주소</th>
+        <th scope="col">전화번호</th>
+    </tr>
+    </thead>
+    <tbody id="customer-list">
+    </tbody>
+</table>
 </body>
 
 </html>
